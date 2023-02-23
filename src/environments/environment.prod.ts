@@ -1,6 +1,6 @@
-import { API_KEY } from '../../.env';
+import { mapboxToken } from '../../.env';
 
 export const environment = {
   production: true,
-  API_KEY,
+  mapboxToken,
 };

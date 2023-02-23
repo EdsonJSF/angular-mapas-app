@@ -1,11 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-import { API_KEY } from '../../.env';
+import { mapboxToken } from '../../.env';
 
 export const environment = {
   production: false,
-  API_KEY,
+  mapboxToken,
 };
 
 /*
