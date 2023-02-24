@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-full-screen',
@@ -16,7 +15,7 @@ export class FullScreenComponent implements OnInit {
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: [-72.2321145795547, 7.7681861430432875], // starting position [lng, lat]
-      zoom: 20, // starting zoom
+      zoom: 17, // starting zoom
     });
   }
 }
