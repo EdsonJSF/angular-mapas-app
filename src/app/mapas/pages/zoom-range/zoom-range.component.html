@@ -3,9 +3,18 @@
 <div class="zoom-container row position-fixed p-2 bg-white rounded">
   <div class="col-12">
     <label class="form-label">
-      Zoom {{ zoomLevel | number : "2.0-2" }} - Lng,Lat [0,0]
+      Zoom {{ zoomLevel | number : "2.0-2" }} - Lng, Lat [
+      {{ center[0] | number : "2.3-3" }}, {{ center[1] | number : "2.3-3" }} ]
     </label>
-    <input type="range" class="form-range" [value]="zoomLevel" min="1" max="18" (input)="zoomCambio(zoomInput.value)" #zoomInput/>
+    <input
+      type="range"
+      class="form-range"
+      [value]="zoomLevel"
+      min="1"
+      max="18"
+      (input)="zoomCambio(zoomInput.value)"
+      #zoomInput
+    />
   </div>
   <div class="col-12">
     <button class="btn btn-primary" (click)="zoomOut()">-</button>
