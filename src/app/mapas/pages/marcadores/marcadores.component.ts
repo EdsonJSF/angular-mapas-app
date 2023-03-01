@@ -27,6 +27,18 @@ export class MarcadoresComponent implements AfterViewInit {
     // markerHTML.innerHTML = 'Hola Mundo';
     // const marker = new mapboxgl.Marker({ element: markerHTML })
 
-    const marker = new mapboxgl.Marker().setLngLat(this.center).addTo(this.map);
+    // const marker = new mapboxgl.Marker().setLngLat(this.center).addTo(this.map);
   }
+
+  agregarMarker() {
+    const color = '#xxxxxx'.replace(/x/g, (y) =>
+      ((Math.random() * 16) | 0).toString(16)
+    );
+
+    const newMarker = new mapboxgl.Marker({ draggable: true, color })
+      .setLngLat(this.center)
+      .addTo(this.map);
+  }
+
+  irMarker() {}
 }
