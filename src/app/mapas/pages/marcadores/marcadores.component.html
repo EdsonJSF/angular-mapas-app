@@ -1,12 +1,12 @@
 <ul class="marker-btns list-group position-fixed">
-  <li class="list-group-item list-group-item-info" (click)="agregarMarker()">
+  <li class="list-group-item list-group-item-info" (click)="addMarker()">
     + Agregar
   </li>
   <li
     class="list-group-item"
     *ngFor="let marker of markers; let i = index"
     [ngStyle]="{ 'background-color': marker.color }"
-    (click)="irMarker()"
+    (click)="flyToMarker(marker.marker)"
   >
     Marker {{ i + 1 }}
   </li>
