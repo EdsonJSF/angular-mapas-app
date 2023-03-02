@@ -2,7 +2,14 @@
   <li class="list-group-item list-group-item-info" (click)="agregarMarker()">
     + Agregar
   </li>
-  <li class="list-group-item" (click)="irMarker()">marker 1</li>
+  <li
+    class="list-group-item"
+    *ngFor="let marker of markers; let i = index"
+    [ngStyle]="{ 'background-color': marker.color }"
+    (click)="irMarker()"
+  >
+    Marker {{ i + 1 }}
+  </li>
 </ul>
 
 <div #map class="w-100 h-100"></div>
