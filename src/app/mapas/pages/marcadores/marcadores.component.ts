@@ -6,6 +6,10 @@ interface MarkerWithColor {
   color: string;
   marker: mapboxgl.Marker;
 }
+interface MarkerStorage {
+  color: string;
+  center: [number, number];
+}
 
 @Component({
   selector: 'app-marcadores',
@@ -31,11 +35,27 @@ export class MarcadoresComponent implements AfterViewInit {
       zoom: this.zoomLevel,
     });
 
+    this.readMarkers();
+
+    /* Marcadores personalizados */
     // const markerHTML: HTMLElement = document.createElement('div');
     // markerHTML.innerHTML = 'Hola Mundo';
     // const marker = new mapboxgl.Marker({ element: markerHTML })
 
     // const marker = new mapboxgl.Marker().setLngLat(this.center).addTo(this.map);
+  }
+
+  createMarker(marker: MarkerStorage): mapboxgl.Marker {
+    const newMarker = new mapboxgl.Marker({
+      draggable: true,
+      color: marker.color,
+    })
+      .setLngLat(marker.center)
+      .addTo(this.map);
+
+    this.markers.push({ color: marker.color, marker: newMarker });
+
+    return newMarker;
   }
 
   addMarker() {
@@ -44,13 +64,11 @@ export class MarcadoresComponent implements AfterViewInit {
       ((Math.random() * 16) | 0).toString(16)
     );
 
-    const marker = new mapboxgl.Marker({ draggable: true, color })
-      .setLngLat(this.center)
-      .addTo(this.map);
-
-    this.markers.push({ color, marker });
+    this.createMarker({ color, center: this.center });
 
     this.map.flyTo({ center: this.center });
+
+    this.saveMarker();
   }
 
   flyToMarker(marker: mapboxgl.Marker) {
@@ -58,7 +76,30 @@ export class MarcadoresComponent implements AfterViewInit {
     this.map.flyTo({ center });
   }
 
-  saveMarker(marker: MarkerWithColor) {}
+  saveMarker() {
+    const lngLatArr: MarkerStorage[] = [];
 
-  readMarkers() {}
+    this.markers.forEach((mkr) => {
+      const color = mkr.color;
+      const { lng, lat } = mkr.marker.getLngLat();
+
+      lngLatArr.push({
+        color,
+        center: [lng, lat],
+      });
+    });
+
+    localStorage.setItem('markers', JSON.stringify(lngLatArr));
+  }
+
+  readMarkers() {
+    const markers = localStorage.getItem('markers');
+
+    if (markers) {
+      const lngLatArr: MarkerStorage[] = JSON.parse(markers);
+      lngLatArr.forEach((mkr) => {
+        this.createMarker({ color: mkr.color, center: mkr.center });
+      });
+    }
+  }
 }
