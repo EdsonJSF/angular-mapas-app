@@ -55,6 +55,10 @@ export class MarcadoresComponent implements AfterViewInit {
 
     this.markers.push({ color: marker.color, marker: newMarker });
 
+    newMarker.on('dragend', () => {
+      this.saveMarker();
+    });
+
     return newMarker;
   }
 
@@ -101,5 +105,11 @@ export class MarcadoresComponent implements AfterViewInit {
         this.createMarker({ color: mkr.color, center: mkr.center });
       });
     }
+  }
+
+  deleteMarker(i: number) {
+    this.markers[i].marker.remove();
+    this.markers.splice(i, 1);
+    this.saveMarker();
   }
 }
