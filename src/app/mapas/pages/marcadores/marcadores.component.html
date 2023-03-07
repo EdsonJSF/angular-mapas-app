@@ -1,16 +1,29 @@
 <ul class="marker-btns list-group position-fixed">
-  <li class="list-group-item list-group-item-info" (click)="addMarker()">
-    + Agregar
-  </li>
   <li
-    class="list-group-item"
-    *ngFor="let marker of markers; let i = index"
-    [ngStyle]="{ 'background-color': marker.color }"
-    (click)="flyToMarker(marker.marker)"
-    (dblclick)="deleteMarker(i)"
+    class="list-group-item list-group-item-info d-flex justify-content-between align-item-center"
   >
-    Marker {{ i + 1 }}
+    <span class="btn btn-sm" (click)="addMarker()">+ Agregar</span>
+    <button class="btn btn-success btn-sm" (click)="show = !show">
+      {{ show ? "Cerrar" : "Abrir" }}
+    </button>
   </li>
+  <ng-container *ngIf="show">
+    <li
+      class="list-group-item d-flex justify-content-between"
+      *ngFor="let marker of markers; let i = index"
+      [ngStyle]="{ 'background-color': marker.color }"
+    >
+      <button
+        class="btn btn-primary btn-sm m-2"
+        (click)="flyToMarker(marker.marker)"
+      >
+        Go Marker {{ i + 1 }}
+      </button>
+      <button class="btn btn-danger btn-sm m-2" (click)="deleteMarker(i)">
+        Borrar
+      </button>
+    </li>
+  </ng-container>
 </ul>
 
 <div #map class="w-100 h-100"></div>

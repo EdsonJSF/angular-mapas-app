@@ -24,6 +24,7 @@ export class MarcadoresComponent implements AfterViewInit {
 
   // Markers Array
   markers: MarkerWithColor[] = [];
+  show: boolean = false;
 
   constructor() {}
 
@@ -63,6 +64,8 @@ export class MarcadoresComponent implements AfterViewInit {
   }
 
   addMarker() {
+    this.show = true;
+
     /* Make a ramdon color */
     const color = '#xxxxxx'.replace(/x/g, (y) =>
       ((Math.random() * 16) | 0).toString(16)
